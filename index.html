@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcards Matemáticas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div id="menuButton" onclick="toggleMenu()">☰</div>
+  <h1>Flashcards Matemáticas</h1>
+</header>
+
+<nav id="sideMenu" class="hidden">
+  <button onclick="showSection('create')">Crear tarjetas</button>
+  <button onclick="showSection('library')">Tarjetas guardadas</button>
+  <button onclick="showSection('study')">Estudiar</button>
+  <button onclick="showSection('stats')">Progreso</button>
+</nav>
+
+<main>
+
+  <!-- CREAR -->
+  <section id="create" class="section">
+    <h2>Crear tarjeta</h2>
+
+    <input id="subject" placeholder="Asignatura (ej. Álgebra)">
+    <input id="topic" placeholder="Tema (ej. Grupos)">
+    <input id="title" placeholder="Nombre del teorema">
+
+    <textarea id="hypothesis" placeholder="Hipótesis"></textarea>
+    <textarea id="thesis" placeholder="Tesis"></textarea>
+    <textarea id="proof" placeholder="Resumen de la demostración (opcional)"></textarea>
+
+    <button onclick="addCard()">Guardar tarjeta</button>
+  </section>
+
+  <!-- BIBLIOTECA -->
+  <section id="library" class="section hidden">
+    <h2>Tarjetas guardadas</h2>
+    <div id="libraryContent"></div>
+  </section>
+
+  <!-- ESTUDIAR -->
+  <section id="study" class="section hidden">
+    <h2>Estudiar</h2>
+
+    <!-- SUBMENÚ DE ESTUDIO -->
+    <select id="studySubject" onchange="updateStudyTopics()">
+      <option value="">Todas las asignaturas</option>
+    </select>
+
+    <select id="studyTopic" onchange="buildStudyQueue()">
+      <option value="">Todos los temas</option>
+    </select>
+
+    <div id="studyArea">
+      <div id="studyTitle"></div>
+
+      <div id="solution" class="hidden">
+        <p><strong>Hipótesis:</strong></p>
+        <p id="sHypothesis"></p>
+
+        <p><strong>Tesis:</strong></p>
+        <p id="sThesis"></p>
+
+        <p><strong>Demostración:</strong></p>
+        <p id="sProof"></p>
+      </div>
+
+      <button id="showSolutionBtn" onclick="showSolution()">Ver solución</button>
+
+      <div id="resultButtons" class="hidden">
+        <button onclick="markCorrect()">La sabía</button>
+        <button onclick="markWrong()">No la sabía</button>
+      </div>
+    </div>
+
+    <p id="noCardsMessage" class="hidden">No hay tarjetas disponibles.</p>
+  </section>
+
+  <!-- PROGRESO -->
+  <section id="stats" class="section hidden">
+    <h2>Progreso</h2>
+    <ul id="statsList"></ul>
+  </section>
+
+</main>
+
+<footer>
+  Creada por Jesús Soler Gómez
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
