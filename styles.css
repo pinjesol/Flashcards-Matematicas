@@ -51,7 +51,7 @@ main {
   border-radius: 10px;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 8px;
   margin-top: 10px;
@@ -88,3 +88,4 @@ footer {
   padding: 10px;
   color: #555;
 }
+
