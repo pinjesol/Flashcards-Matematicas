@@ -1,4 +1,7 @@
+const sideMenu = document.getElementById("sideMenu");
+
 let cards = [];
+let studyQueue = [];
 let currentIndex = null;
 
 /* -------- MENÚ -------- */
@@ -11,7 +14,7 @@ function showSection(id) {
   document.getElementById(id).classList.remove("hidden");
   sideMenu.classList.add("hidden");
 
-  if (id === "study") loadStudyCard();
+  if (id === "study") initStudyFilters();
   if (id === "stats") loadStats();
   if (id === "library") loadLibrary();
 }
@@ -94,20 +97,50 @@ function deleteCard(index) {
 }
 
 /* -------- ESTUDIAR -------- */
-function chooseCard() {
-  let weights = cards.map(c => c.wrong + 1);
-  let total = weights.reduce((a, b) => a + b, 0);
-  let r = Math.random() * total;
+function initStudyFilters() {
+  studySubject.innerHTML = `<option value="">Todas las asignaturas</option>`;
+  studyTopic.innerHTML = `<option value="">Todos los temas</option>`;
 
-  let acc = 0;
-  for (let i = 0; i < cards.length; i++) {
-    acc += weights[i];
-    if (r < acc) return i;
-  }
+  [...new Set(cards.map(c => c.subject))].forEach(s => {
+    let opt = document.createElement("option");
+    opt.value = s;
+    opt.innerText = s;
+    studySubject.appendChild(opt);
+  });
+
+  updateStudyTopics();
+}
+
+function updateStudyTopics() {
+  studyTopic.innerHTML = `<option value="">Todos los temas</option>`;
+
+  cards
+    .filter(c => !studySubject.value || c.subject === studySubject.value)
+    .map(c => c.topic)
+    .filter((v, i, a) => a.indexOf(v) === i)
+    .forEach(t => {
+      let opt = document.createElement("option");
+      opt.value = t;
+      opt.innerText = t;
+      studyTopic.appendChild(opt);
+    });
+
+  buildStudyQueue();
+  loadStudyCard();
+}
+
+function buildStudyQueue() {
+  studyQueue = cards
+    .map((c, i) => ({ ...c, index: i }))
+    .filter(c =>
+      (!studySubject.value || c.subject === studySubject.value) &&
+      (!studyTopic.value || c.topic === studyTopic.value)
+    )
+    .sort((a, b) => b.wrong - a.wrong);
 }
 
 function loadStudyCard() {
-  if (cards.length === 0) {
+  if (studyQueue.length === 0) {
     noCardsMessage.classList.remove("hidden");
     studyArea.classList.add("hidden");
     return;
@@ -116,7 +149,10 @@ function loadStudyCard() {
   noCardsMessage.classList.add("hidden");
   studyArea.classList.remove("hidden");
 
-  currentIndex = chooseCard();
+  let card = studyQueue.shift();
+  studyQueue.push(card);
+  currentIndex = card.index;
+
   let c = cards[currentIndex];
 
   studyTitle.innerText = c.title;
@@ -144,6 +180,7 @@ function markCorrect() {
 function markWrong() {
   cards[currentIndex].wrong++;
   saveCards();
+  buildStudyQueue();
   loadStudyCard();
 }
 
@@ -159,3 +196,4 @@ function loadStats() {
 
 /* -------- INICIO -------- */
 loadCards();
+
