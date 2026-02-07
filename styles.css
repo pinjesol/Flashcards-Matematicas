@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #111;
+}
+
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+#menuButton {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+nav {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  background: #222;
+  padding: 10px;
+}
+
+nav button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+}
+
+.section {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+textarea {
+  height: 70px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+.cardItem {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.cardItem button {
+  background: black;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+  color: #555;
+}
