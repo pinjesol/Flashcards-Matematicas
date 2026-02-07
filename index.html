@@ -46,6 +46,15 @@
   <section id="study" class="section hidden">
     <h2>Estudiar</h2>
 
+    <!-- FILTROS (discretos) -->
+    <select id="studySubject" onchange="updateStudyTopics()">
+      <option value="">Todas las asignaturas</option>
+    </select>
+
+    <select id="studyTopic" onchange="loadStudyCard()">
+      <option value="">Todos los temas</option>
+    </select>
+
     <div id="studyArea">
       <div id="studyTitle"></div>
 
@@ -86,3 +95,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
